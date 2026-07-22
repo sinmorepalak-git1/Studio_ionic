@@ -26,8 +26,8 @@ import img8 from "@/assets/images/media__1784656361727.jpg";
 import img9 from "@/assets/images/media__1784656361749.jpg";
 import img10 from "@/assets/images/media__1784656361756.jpg";
 import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
-import { LoadingScreen } from "@/components/LoadingScreen";
-import { Portfolio } from "@/components/Portfolio";
+
+import Portfolio from "@/components/Portfolio";
 import logo from "@/assets/images/logo.png";
 
 export const Route = createFileRoute("/")({
@@ -159,7 +159,7 @@ function MarqueeSection() {
   const allProjects = [...MARQUEE_PROJECTS, ...MARQUEE_PROJECTS];
 
   return (
-    <section className="pt-3 md:pt-5 pb-16 md:pb-20 bg-[#FAF8F5] overflow-hidden relative select-none">
+    <section className="pt-3 md:pt-5 pb-4 md:pb-6 bg-[#FAF8F5] overflow-hidden relative select-none">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-16 text-center reveal">
         <span className="text-[10px] tracking-luxe uppercase text-gold">OUR WORK</span>
         <h2 className="font-display text-4xl md:text-5xl mt-4 leading-tight">
@@ -238,7 +238,7 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <LoadingScreen />
+
       {/* NAV */}
       <header className="fixed top-0 inset-x-0 w-full z-[9999] backdrop-blur-[12px] bg-[#faf7f2eb] transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
@@ -353,7 +353,7 @@ function Index() {
       <MarqueeSection />
 
       {/* ABOUT */}
-      <section id="about" className="py-24 md:py-36 px-6 lg:px-12">
+      <section id="about" className="pt-6 md:pt-8 lg:pt-10 pb-24 md:pb-36 px-6 lg:px-12">
         <div className="max-w-4xl mx-auto reveal">
           <div className="text-center mb-12">
             <span className="text-[10px] tracking-luxe uppercase text-gold">About the Founder</span>
