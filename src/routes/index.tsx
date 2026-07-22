@@ -26,6 +26,9 @@ import img8 from "@/assets/images/media__1784656361727.jpg";
 import img9 from "@/assets/images/media__1784656361749.jpg";
 import img10 from "@/assets/images/media__1784656361756.jpg";
 import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
+import { LoadingScreen } from "@/components/LoadingScreen";
+import { Portfolio } from "@/components/Portfolio";
+import logo from "@/assets/images/logo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -156,7 +159,7 @@ function MarqueeSection() {
   const allProjects = [...MARQUEE_PROJECTS, ...MARQUEE_PROJECTS];
 
   return (
-    <section className="pt-3 md:pt-5 pb-24 md:pb-32 bg-[#FAF8F5] overflow-hidden relative select-none">
+    <section className="pt-3 md:pt-5 pb-16 md:pb-20 bg-[#FAF8F5] overflow-hidden relative select-none">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-16 text-center reveal">
         <span className="text-[10px] tracking-luxe uppercase text-gold">OUR WORK</span>
         <h2 className="font-display text-4xl md:text-5xl mt-4 leading-tight">
@@ -175,7 +178,7 @@ function MarqueeSection() {
         
         <motion.div
           ref={containerRef}
-          className="flex gap-6 min-w-max cursor-grab active:cursor-grabbing px-6"
+          className="flex gap-4 md:gap-5 min-w-max cursor-grab active:cursor-grabbing px-6"
           style={{ x: baseX }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
@@ -190,22 +193,22 @@ function MarqueeSection() {
             <a 
               key={i} 
               href="#portfolio"
-              className="relative group w-[280px] md:w-[420px] h-[260px] md:h-[320px] rounded-[20px] overflow-hidden shrink-0 border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-2 transition-transform duration-500 block"
+              className="relative group w-[160px] sm:w-[200px] md:w-[240px] lg:w-[270px] h-[120px] sm:h-[150px] md:h-[180px] lg:h-[200px] rounded-2xl overflow-hidden shrink-0 border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-2 transition-transform duration-500 block"
               draggable="false"
             >
               <motion.img 
                 src={p.img} 
                 alt={p.title} 
                 className="w-full h-full object-cover"
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 draggable="false"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              <div className="absolute inset-0 p-6 flex flex-col justify-end text-warm-white translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none">
-                <h3 className="font-display text-2xl mb-2">{p.title}</h3>
-                <div className="flex items-center gap-2 text-[10px] tracking-luxe uppercase text-gold">
-                  View Project <ArrowUpRight size={12} />
+              <div className="absolute inset-0 p-4 md:p-5 flex flex-col justify-end text-warm-white translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none">
+                <h3 className="font-display text-base md:text-lg mb-1">{p.title}</h3>
+                <div className="flex items-center gap-1.5 text-[9px] md:text-[11px] tracking-luxe uppercase text-gold">
+                  View Project <ArrowUpRight size={10} />
                 </div>
               </div>
             </a>
@@ -235,11 +238,12 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <LoadingScreen />
       {/* NAV */}
-      <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "bg-warm-white/85 backdrop-blur-md border-b border-border" : "bg-transparent"}`}>
+      <header className="fixed top-0 inset-x-0 w-full z-[9999] backdrop-blur-[12px] bg-[#faf7f2eb] transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
-          <a href="#top" className="flex items-baseline gap-2">
-            <span className="font-display text-2xl tracking-tight">Studio Ionic 9</span>
+          <a href="#top" className="flex items-center gap-2">
+            <img src={logo} alt="Studio Ionic 9" className="w-auto object-contain h-[38px] md:h-[45px] lg:h-[50px]" />
           </a>
           <nav className="hidden md:flex items-center gap-10">
             {NAV.map((n) => (
@@ -261,7 +265,7 @@ function Index() {
       {open && (
         <div className="fixed inset-0 z-[60] bg-warm-white animate-fade-in">
           <div className="flex justify-between items-center h-20 px-6">
-            <span className="font-display text-2xl">Studio Ionic 9</span>
+            <img src={logo} alt="Studio Ionic 9" className="h-10 object-contain" />
             <button onClick={() => setOpen(false)} aria-label="Close menu"><X size={22} /></button>
           </div>
           <nav className="flex flex-col items-center justify-center gap-8 mt-20">
@@ -274,7 +278,7 @@ function Index() {
       )}
 
       {/* HERO */}
-      <section id="top" className="relative min-h-screen flex items-center overflow-hidden">
+      <section id="top" className="relative min-h-screen flex items-center overflow-hidden pt-20">
         <img src={hero} alt="Luxury interior" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} />
         <div className="absolute inset-0 bg-gradient-to-b from-warm-white/40 via-warm-white/30 to-warm-white" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,oklch(0.978_0.005_75/0.4)_100%)]" />
@@ -283,14 +287,27 @@ function Index() {
           <div className="max-w-3xl">
             <div className="reveal flex items-center gap-3 mb-8" style={{ transitionDelay: "0.1s" }}>
               <div className="h-px w-12 bg-gold" />
-              <span className="text-[10px] tracking-luxe uppercase text-gold">PREMIUM INTERIOR DESIGN STUDIO</span>
+              <span className="text-[10px] tracking-luxe uppercase text-gold">STUDIO IONIC 9 / Luxury Interior Design Studio</span>
             </div>
             <h1 className="reveal font-display text-[clamp(3rem,9vw,7.5rem)] leading-[0.95] mb-6" style={{ transitionDelay: "0.2s" }}>
               Studio Ionic 9
             </h1>
-            <h2 className="reveal font-display italic text-gold text-3xl md:text-5xl mb-6" style={{ transitionDelay: "0.3s" }}>
+            <h2 className="reveal font-display italic text-gold text-3xl md:text-5xl mb-8" style={{ transitionDelay: "0.3s" }}>
               Luxury Interior Design
             </h2>
+
+            <div className="reveal mb-8 flex flex-col items-start" style={{ transitionDelay: "0.35s" }}>
+              <div className="w-24 h-[1px] bg-gold/30 mb-5 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gold" style={{ animation: "slideRight 2.5s ease-in-out infinite" }} />
+              </div>
+              <h3 className="font-display text-2xl md:text-3xl text-charcoal mb-2">
+                Sarthak Jethe
+              </h3>
+              <p className="text-[10px] tracking-luxe uppercase text-gold font-medium">
+                Founder & Principal Interior Designer
+              </p>
+            </div>
+
             <p className="reveal text-base md:text-lg text-foreground/70 max-w-xl mb-10 leading-relaxed" style={{ transitionDelay: "0.4s" }}>
               Studio Ionic 9 creates luxurious residential and commercial interiors that blend elegance, functionality, and innovation. We deliver customized interior solutions with premium craftsmanship and timeless design.
             </p>
@@ -311,7 +328,10 @@ function Index() {
             <div className="absolute inset-0 bg-gold animate-[slide-down_2s_ease-in-out_infinite]" style={{ animation: "slideDown 2s ease-in-out infinite" }} />
           </div>
         </div>
-        <style>{`@keyframes slideDown{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}`}</style>
+        <style>{`
+          @keyframes slideDown { 0% { transform: translateY(-100%) } 100% { transform: translateY(100%) } }
+          @keyframes slideRight { 0% { transform: translateX(-100%) } 100% { transform: translateX(100%) } }
+        `}</style>
       </section>
 
       {/* MARQUEE */}
@@ -408,43 +428,7 @@ function Index() {
         </div>
       </section>
 
-      {/* PORTFOLIO */}
-      <section id="portfolio" className="py-24 md:py-36 px-6 lg:px-12">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 reveal">
-            <span className="text-[10px] tracking-luxe uppercase text-gold">Selected Work</span>
-            <h2 className="font-display text-4xl md:text-6xl mt-4 leading-tight">
-              The <span className="italic">Portfolio</span>
-            </h2>
-            <div className="h-px w-16 bg-gold mx-auto mt-6" />
-          </div>
-
-          <div className="grid md:grid-cols-3 grid-flow-row-dense auto-rows-[260px] md:auto-rows-[280px] gap-4">
-            {PORTFOLIO.map((p, i) => (
-              <a
-                href="#contact"
-                key={p.title}
-                className={`reveal group relative overflow-hidden bg-beige ${p.span || ""}`}
-                style={{ transitionDelay: `${i * 0.06}s` }}
-              >
-                <img src={p.img} alt={p.title} loading="lazy" width={1024} height={1024} className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/10 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
-                <div className="absolute inset-0 border border-gold/0 group-hover:border-gold/40 m-3 transition-all duration-500" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-warm-white">
-                  <div className="text-[10px] tracking-luxe uppercase text-gold mb-2">{p.cat}</div>
-                  <h3 className="font-display text-2xl translate-y-2 group-hover:translate-y-0 transition-transform duration-500">{p.title}</h3>
-                  <p className="text-sm text-warm-white/80 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 line-clamp-2">
-                    {p.desc}
-                  </p>
-                  <div className="flex items-center gap-2 text-[10px] tracking-luxe uppercase mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    View Project <ArrowUpRight size={12} />
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Portfolio />
 
       {/* PROCESS */}
       <section id="process" className="py-24 md:py-36 px-6 lg:px-12 bg-charcoal text-warm-white">
@@ -522,6 +506,7 @@ function Index() {
       <section id="contact" className="py-24 md:py-36 px-6 lg:px-12">
         <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-16">
           <div className="md:col-span-5 reveal">
+            <img src={logo} alt="Studio Ionic 9" className="h-16 md:h-20 object-contain mb-8" />
             <span className="text-[10px] tracking-luxe uppercase text-gold">Begin a Project</span>
             <h2 className="font-display text-4xl md:text-6xl mt-4 mb-8 leading-tight">
               Let's design<br/><span className="italic">your story.</span>
@@ -585,11 +570,12 @@ function Index() {
       <footer className="bg-charcoal text-warm-white/70 px-6 lg:px-12 pt-20 pb-8">
         <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-12 pb-16 border-b border-warm-white/10">
           <div className="md:col-span-5">
-            <div className="flex items-baseline gap-2 mb-6">
-              <span className="font-display text-3xl text-warm-white">Studio Ionic 9</span>
-            </div>
+            <img src={logo} alt="Studio Ionic 9" className="h-14 md:h-16 object-contain mb-6" />
+            <p className="text-sm max-w-sm leading-relaxed font-display text-xl text-warm-white mb-2">
+              Studio Ionic 9
+            </p>
             <p className="text-sm max-w-sm leading-relaxed">
-              Luxury Interior Design
+              Luxury Interior Design Studio
             </p>
           </div>
           <div className="md:col-span-3">
