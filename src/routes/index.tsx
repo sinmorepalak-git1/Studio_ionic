@@ -15,16 +15,16 @@ const InstagramIcon = ({ size = 14 }: { size?: number }) => (
 );
 import { useReveal } from "@/hooks/use-reveal";
 import hero from "@/assets/hero-interior.jpg";
-import img1 from "C:/Users/sinmo/.gemini/antigravity-ide/brain/1666c812-fbbe-4baa-8b6d-1d3ba92aa7a3/media__1784655551327.png";
-import img2 from "C:/Users/sinmo/.gemini/antigravity-ide/brain/1666c812-fbbe-4baa-8b6d-1d3ba92aa7a3/media__1784655559667.png";
-import img3 from "C:/Users/sinmo/.gemini/antigravity-ide/brain/1666c812-fbbe-4baa-8b6d-1d3ba92aa7a3/media__1784655575753.png";
-import img4 from "C:/Users/sinmo/.gemini/antigravity-ide/brain/1666c812-fbbe-4baa-8b6d-1d3ba92aa7a3/media__1784655581624.jpg";
-import img5 from "C:/Users/sinmo/.gemini/antigravity-ide/brain/1666c812-fbbe-4baa-8b6d-1d3ba92aa7a3/media__1784655588378.png";
-import img6 from "C:/Users/sinmo/.gemini/antigravity-ide/brain/1666c812-fbbe-4baa-8b6d-1d3ba92aa7a3/media__1784656361650.jpg";
-import img7 from "C:/Users/sinmo/.gemini/antigravity-ide/brain/1666c812-fbbe-4baa-8b6d-1d3ba92aa7a3/media__1784656361710.jpg";
-import img8 from "C:/Users/sinmo/.gemini/antigravity-ide/brain/1666c812-fbbe-4baa-8b6d-1d3ba92aa7a3/media__1784656361727.jpg";
-import img9 from "C:/Users/sinmo/.gemini/antigravity-ide/brain/1666c812-fbbe-4baa-8b6d-1d3ba92aa7a3/media__1784656361749.jpg";
-import img10 from "C:/Users/sinmo/.gemini/antigravity-ide/brain/1666c812-fbbe-4baa-8b6d-1d3ba92aa7a3/media__1784656361756.jpg";
+import img1 from "@/assets/images/media__1784655551327.png";
+import img2 from "@/assets/images/media__1784655559667.png";
+import img3 from "@/assets/images/media__1784655575753.png";
+import img4 from "@/assets/images/media__1784655581624.jpg";
+import img5 from "@/assets/images/media__1784655588378.png";
+import img6 from "@/assets/images/media__1784656361650.jpg";
+import img7 from "@/assets/images/media__1784656361710.jpg";
+import img8 from "@/assets/images/media__1784656361727.jpg";
+import img9 from "@/assets/images/media__1784656361749.jpg";
+import img10 from "@/assets/images/media__1784656361756.jpg";
 import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
 
 export const Route = createFileRoute("/")({
