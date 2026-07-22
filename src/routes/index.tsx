@@ -45,9 +45,9 @@ export const Route = createFileRoute("/")({
 });
 
 const NAV = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
   { label: "Portfolio", href: "#portfolio" },
+  { label: "Services", href: "#services" },
+  { label: "About", href: "#about" },
   { label: "Process", href: "#process" },
   { label: "Contact", href: "#contact" },
 ];
@@ -352,6 +352,44 @@ function Index() {
 
       <MarqueeSection />
 
+      {/* PORTFOLIO */}
+      <Portfolio />
+
+      {/* SERVICES */}
+      <section id="services" className="py-24 md:py-36 px-6 lg:px-12 bg-beige/40">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
+            <div className="reveal">
+              <span className="text-[10px] tracking-luxe uppercase text-gold">What We Do</span>
+              <h2 className="font-display text-4xl md:text-6xl mt-4 leading-tight max-w-2xl">
+                A studio for every<br/><span className="italic">interior ambition.</span>
+              </h2>
+            </div>
+            <p className="reveal max-w-sm text-foreground/70">
+              From single rooms to full turnkey homes and commercial fit-outs —
+              comprehensive design under one elegant roof.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+            {SERVICES.map((s, i) => (
+              <div key={s.title} className="reveal group bg-background p-10 hover:bg-warm-white transition-all duration-500 relative overflow-hidden" style={{ transitionDelay: `${i * 0.05}s` }} >
+                <div className="absolute top-0 left-0 h-px w-0 bg-gold group-hover:w-full transition-all duration-700" />
+                <div className="flex items-start justify-between mb-8">
+                  <s.icon size={28} strokeWidth={1} className="text-gold" />
+                  <span className="font-display text-xs text-foreground/30">0{i + 1}</span>
+                </div>
+                <h3 className="font-display text-2xl mb-3">{s.title}</h3>
+                <p className="text-sm text-foreground/65 leading-relaxed">{s.desc}</p>
+                <div className="mt-6 flex items-center gap-2 text-[10px] tracking-luxe uppercase text-gold opacity-0 group-hover:opacity-100 transition-opacity">
+                  Enquire <ArrowUpRight size={12} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ABOUT */}
       <section id="about" className="pt-6 md:pt-8 lg:pt-10 pb-24 md:pb-36 px-6 lg:px-12">
         <div className="max-w-4xl mx-auto reveal">
@@ -392,43 +430,6 @@ function Index() {
           </div>
         </div>
       </section>
-
-      {/* SERVICES */}
-      <section id="services" className="py-24 md:py-36 px-6 lg:px-12 bg-beige/40">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
-            <div className="reveal">
-              <span className="text-[10px] tracking-luxe uppercase text-gold">What We Do</span>
-              <h2 className="font-display text-4xl md:text-6xl mt-4 leading-tight max-w-2xl">
-                A studio for every<br/><span className="italic">interior ambition.</span>
-              </h2>
-            </div>
-            <p className="reveal max-w-sm text-foreground/70">
-              From single rooms to full turnkey homes and commercial fit-outs —
-              comprehensive design under one elegant roof.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
-            {SERVICES.map((s, i) => (
-              <div key={s.title} className="reveal group bg-background p-10 hover:bg-warm-white transition-all duration-500 relative overflow-hidden" style={{ transitionDelay: `${i * 0.05}s` }}>
-                <div className="absolute top-0 left-0 h-px w-0 bg-gold group-hover:w-full transition-all duration-700" />
-                <div className="flex items-start justify-between mb-8">
-                  <s.icon size={28} strokeWidth={1} className="text-gold" />
-                  <span className="font-display text-xs text-foreground/30">0{i + 1}</span>
-                </div>
-                <h3 className="font-display text-2xl mb-3">{s.title}</h3>
-                <p className="text-sm text-foreground/65 leading-relaxed">{s.desc}</p>
-                <div className="mt-6 flex items-center gap-2 text-[10px] tracking-luxe uppercase text-gold opacity-0 group-hover:opacity-100 transition-opacity">
-                  Enquire <ArrowUpRight size={12} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <Portfolio />
 
       {/* PROCESS */}
       <section id="process" className="py-24 md:py-36 px-6 lg:px-12 bg-charcoal text-warm-white">
