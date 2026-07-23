@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
+import { TextReveal } from "./TextReveal";
 
 import img0 from "@/assets/images/media__1784656361650.jpg";
 import img1 from "@/assets/images/media__1784656361727.jpg";
@@ -47,239 +48,82 @@ interface Project {
 const CATEGORIES: Category[] = ["All", "Living Room", "Bedroom", "Kitchen", "Dining", "Bathroom", "Office", "Commercial", "Residential", "TV Unit", "Wardrobe", "Modular Kitchen", "Kids Bedroom", "Guest Bedroom", "Master Bedroom", "Pooja Room", "Entrance/Foyer", "Balcony", "Clinic/Healthcare"];
 
 const PORTFOLIO_PROJECTS: Project[] = [
-  {
-    id: 0,
-    title: "Minimalist Harmony",
-    category: "Living Room",
-    location: "Studio Ionic 9",
-    description: "Premium luxury living room interior designed with meticulous attention to detail.",
-    img: img0,
-  },
-  {
-    id: 1,
-    title: "Culinary Elegance",
-    category: "Bedroom",
-    location: "Studio Ionic 9",
-    description: "Premium luxury bedroom interior designed with meticulous attention to detail.",
-    img: img1,
-  },
-  {
-    id: 2,
-    title: "The Executive Suite",
-    category: "Kitchen",
-    location: "Studio Ionic 9",
-    description: "Premium luxury kitchen interior designed with meticulous attention to detail.",
-    img: img2,
-  },
-  {
-    id: 3,
-    title: "Urban Retreat",
-    category: "Dining",
-    location: "Studio Ionic 9",
-    description: "Premium luxury dining interior designed with meticulous attention to detail.",
-    img: img3,
-  },
-  {
-    id: 4,
-    title: "Symphony Dining",
-    category: "Bathroom",
-    location: "Studio Ionic 9",
-    description: "Premium luxury bathroom interior designed with meticulous attention to detail.",
-    img: img4,
-  },
-  {
-    id: 5,
-    title: "Heritage Villa",
-    category: "Office",
-    location: "Studio Ionic 9",
-    description: "Premium luxury office interior designed with meticulous attention to detail.",
-    img: img5,
-  },
-  {
-    id: 6,
-    title: "Nexus Boutique",
-    category: "Commercial",
-    location: "Studio Ionic 9",
-    description: "Premium luxury commercial interior designed with meticulous attention to detail.",
-    img: img6,
-  },
-  {
-    id: 7,
-    title: "Luminous Lounge",
-    category: "Residential",
-    location: "Studio Ionic 9",
-    description: "Premium luxury residential interior designed with meticulous attention to detail.",
-    img: img7,
-  },
-  {
-    id: 8,
-    title: "Serene Sanctuary",
-    category: "TV Unit",
-    location: "Studio Ionic 9",
-    description: "Premium luxury tv unit interior designed with meticulous attention to detail.",
-    img: img8,
-  },
-  {
-    id: 9,
-    title: "Modern Edge",
-    category: "Wardrobe",
-    location: "Studio Ionic 9",
-    description: "Premium luxury wardrobe interior designed with meticulous attention to detail.",
-    img: img9,
-  },
-  {
-    id: 11,
-    title: "Nordic Haven",
-    category: "Kids Bedroom",
-    location: "Studio Ionic 9",
-    description: "Premium luxury kids bedroom interior designed with meticulous attention to detail.",
-    img: img11,
-  },
-  {
-    id: 12,
-    title: "Zen Space",
-    category: "Guest Bedroom",
-    location: "Studio Ionic 9",
-    description: "Premium luxury guest bedroom interior designed with meticulous attention to detail.",
-    img: img12,
-  },
-  {
-    id: 13,
-    title: "Opulent Grandeur",
-    category: "Master Bedroom",
-    location: "Studio Ionic 9",
-    description: "Premium luxury master bedroom interior designed with meticulous attention to detail.",
-    img: img13,
-  },
-  {
-    id: 14,
-    title: "Industrial Loft",
-    category: "Pooja Room",
-    location: "Studio Ionic 9",
-    description: "Premium luxury pooja room interior designed with meticulous attention to detail.",
-    img: img14,
-  },
-  {
-    id: 15,
-    title: "Bohemian Rhapsody",
-    category: "Entrance/Foyer",
-    location: "Studio Ionic 9",
-    description: "Premium luxury entrance/foyer interior designed with meticulous attention to detail.",
-    img: img15,
-  },
-  {
-    id: 16,
-    title: "Contemporary Chic",
-    category: "Balcony",
-    location: "Studio Ionic 9",
-    description: "Premium luxury balcony interior designed with meticulous attention to detail.",
-    img: img16,
-  },
-  {
-    id: 17,
-    title: "Vintage Charm",
-    category: "Clinic/Healthcare",
-    location: "Studio Ionic 9",
-    description: "Premium luxury clinic/healthcare interior designed with meticulous attention to detail.",
-    img: img17,
-  },
-  {
-    id: 18,
-    title: "Art Deco Delight",
-    category: "Living Room",
-    location: "Studio Ionic 9",
-    description: "Premium luxury living room interior designed with meticulous attention to detail.",
-    img: img18,
-  },
-  {
-    id: 19,
-    title: "Rustic Elegance",
-    category: "Bedroom",
-    location: "Studio Ionic 9",
-    description: "Premium luxury bedroom interior designed with meticulous attention to detail.",
-    img: img19,
-  },
-  {
-    id: 20,
-    title: "Coastal Breeze",
-    category: "Kitchen",
-    location: "Studio Ionic 9",
-    description: "Premium luxury kitchen interior designed with meticulous attention to detail.",
-    img: img20,
-  },
-  {
-    id: 21,
-    title: "Mid-Century Modern",
-    category: "Dining",
-    location: "Studio Ionic 9",
-    description: "Premium luxury dining interior designed with meticulous attention to detail.",
-    img: img21,
-  },
-  {
-    id: 22,
-    title: "Eclectic Mix",
-    category: "Bathroom",
-    location: "Studio Ionic 9",
-    description: "Premium luxury bathroom interior designed with meticulous attention to detail.",
-    img: img22,
-  },
-  {
-    id: 24,
-    title: "Tranquil Oasis",
-    category: "Commercial",
-    location: "Studio Ionic 9",
-    description: "Premium luxury commercial interior designed with meticulous attention to detail.",
-    img: img24,
-  },
-  {
-    id: 25,
-    title: "Sophisticated Style",
-    category: "Residential",
-    location: "Studio Ionic 9",
-    description: "Premium luxury residential interior designed with meticulous attention to detail.",
-    img: img25,
-  },
-  {
-    id: 26,
-    title: "Playful Palette",
-    category: "TV Unit",
-    location: "Studio Ionic 9",
-    description: "Premium luxury tv unit interior designed with meticulous attention to detail.",
-    img: img26,
-  },
-  {
-    id: 27,
-    title: "Earthy Tones",
-    category: "Wardrobe",
-    location: "Studio Ionic 9",
-    description: "Premium luxury wardrobe interior designed with meticulous attention to detail.",
-    img: img27,
-  },
-  {
-    id: 29,
-    title: "Cozy Corner",
-    category: "Kids Bedroom",
-    location: "Studio Ionic 9",
-    description: "Premium luxury kids bedroom interior designed with meticulous attention to detail.",
-    img: img29,
-  },
-  {
-    id: 30,
-    title: "Vibrant Hues",
-    category: "Guest Bedroom",
-    location: "Studio Ionic 9",
-    description: "Premium luxury guest bedroom interior designed with meticulous attention to detail.",
-    img: img30,
-  },
-  {
-    id: 31,
-    title: "Monochrome Magic",
-    category: "Master Bedroom",
-    location: "Studio Ionic 9",
-    description: "Premium luxury master bedroom interior designed with meticulous attention to detail.",
-    img: img31,
-  },
+  { id: 0, title: "Minimalist Harmony", category: "Living Room", location: "Studio Ionic 9", description: "Premium luxury living room interior designed with meticulous attention to detail.", img: img0 },
+  { id: 1, title: "Culinary Elegance", category: "Bedroom", location: "Studio Ionic 9", description: "Premium luxury bedroom interior designed with meticulous attention to detail.", img: img1 },
+  { id: 2, title: "The Executive Suite", category: "Kitchen", location: "Studio Ionic 9", description: "Premium luxury kitchen interior designed with meticulous attention to detail.", img: img2 },
+  { id: 3, title: "Urban Retreat", category: "Dining", location: "Studio Ionic 9", description: "Premium luxury dining interior designed with meticulous attention to detail.", img: img3 },
+  { id: 4, title: "Symphony Dining", category: "Bathroom", location: "Studio Ionic 9", description: "Premium luxury bathroom interior designed with meticulous attention to detail.", img: img4 },
+  { id: 5, title: "Heritage Villa", category: "Office", location: "Studio Ionic 9", description: "Premium luxury office interior designed with meticulous attention to detail.", img: img5 },
+  { id: 6, title: "Nexus Boutique", category: "Commercial", location: "Studio Ionic 9", description: "Premium luxury commercial interior designed with meticulous attention to detail.", img: img6 },
+  { id: 7, title: "Luminous Lounge", category: "Residential", location: "Studio Ionic 9", description: "Premium luxury residential interior designed with meticulous attention to detail.", img: img7 },
+  { id: 8, title: "Serene Sanctuary", category: "TV Unit", location: "Studio Ionic 9", description: "Premium luxury tv unit interior designed with meticulous attention to detail.", img: img8 },
+  { id: 9, title: "Modern Edge", category: "Wardrobe", location: "Studio Ionic 9", description: "Premium luxury wardrobe interior designed with meticulous attention to detail.", img: img9 },
+  { id: 11, title: "Nordic Haven", category: "Kids Bedroom", location: "Studio Ionic 9", description: "Premium luxury kids bedroom interior designed with meticulous attention to detail.", img: img11 },
+  { id: 12, title: "Zen Space", category: "Guest Bedroom", location: "Studio Ionic 9", description: "Premium luxury guest bedroom interior designed with meticulous attention to detail.", img: img12 },
+  { id: 13, title: "Opulent Grandeur", category: "Master Bedroom", location: "Studio Ionic 9", description: "Premium luxury master bedroom interior designed with meticulous attention to detail.", img: img13 },
+  { id: 14, title: "Industrial Loft", category: "Pooja Room", location: "Studio Ionic 9", description: "Premium luxury pooja room interior designed with meticulous attention to detail.", img: img14 },
+  { id: 15, title: "Bohemian Rhapsody", category: "Entrance/Foyer", location: "Studio Ionic 9", description: "Premium luxury entrance/foyer interior designed with meticulous attention to detail.", img: img15 },
+  { id: 16, title: "Contemporary Chic", category: "Balcony", location: "Studio Ionic 9", description: "Premium luxury balcony interior designed with meticulous attention to detail.", img: img16 },
+  { id: 17, title: "Vintage Charm", category: "Clinic/Healthcare", location: "Studio Ionic 9", description: "Premium luxury clinic/healthcare interior designed with meticulous attention to detail.", img: img17 },
+  { id: 18, title: "Art Deco Delight", category: "Living Room", location: "Studio Ionic 9", description: "Premium luxury living room interior designed with meticulous attention to detail.", img: img18 },
+  { id: 19, title: "Rustic Elegance", category: "Bedroom", location: "Studio Ionic 9", description: "Premium luxury bedroom interior designed with meticulous attention to detail.", img: img19 },
+  { id: 20, title: "Coastal Breeze", category: "Kitchen", location: "Studio Ionic 9", description: "Premium luxury kitchen interior designed with meticulous attention to detail.", img: img20 },
+  { id: 21, title: "Mid-Century Modern", category: "Dining", location: "Studio Ionic 9", description: "Premium luxury dining interior designed with meticulous attention to detail.", img: img21 },
+  { id: 22, title: "Eclectic Mix", category: "Bathroom", location: "Studio Ionic 9", description: "Premium luxury bathroom interior designed with meticulous attention to detail.", img: img22 },
+  { id: 24, title: "Tranquil Oasis", category: "Commercial", location: "Studio Ionic 9", description: "Premium luxury commercial interior designed with meticulous attention to detail.", img: img24 },
+  { id: 25, title: "Sophisticated Style", category: "Residential", location: "Studio Ionic 9", description: "Premium luxury residential interior designed with meticulous attention to detail.", img: img25 },
+  { id: 26, title: "Playful Palette", category: "TV Unit", location: "Studio Ionic 9", description: "Premium luxury tv unit interior designed with meticulous attention to detail.", img: img26 },
+  { id: 27, title: "Earthy Tones", category: "Wardrobe", location: "Studio Ionic 9", description: "Premium luxury wardrobe interior designed with meticulous attention to detail.", img: img27 },
+  { id: 29, title: "Cozy Corner", category: "Kids Bedroom", location: "Studio Ionic 9", description: "Premium luxury kids bedroom interior designed with meticulous attention to detail.", img: img29 },
+  { id: 30, title: "Vibrant Hues", category: "Guest Bedroom", location: "Studio Ionic 9", description: "Premium luxury guest bedroom interior designed with meticulous attention to detail.", img: img30 },
+  { id: 31, title: "Monochrome Magic", category: "Master Bedroom", location: "Studio Ionic 9", description: "Premium luxury master bedroom interior designed with meticulous attention to detail.", img: img31 },
 ];
+
+const ProjectCard = ({ project, idx, onClick }: { project: Project; idx: number; onClick: () => void }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const speed = [10, 25, 40][idx % 3]; 
+  const yParallax = useTransform(scrollYProgress, [0, 1], [-speed, speed]);
+
+  return (
+    <motion.div
+      ref={ref}
+      layout
+      initial={{ opacity: 0, y: 40, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-10% 0px" }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.8, delay: (idx % 5) * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative overflow-hidden rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] hover:-translate-y-2 cursor-pointer bg-warm-white h-[140px] sm:h-[150px] md:h-[160px] lg:h-[180px] transition-all duration-500"
+      onClick={onClick}
+    >
+      <div className="relative overflow-hidden w-full h-full">
+        <motion.img
+          src={project.img}
+          alt={project.title}
+          loading="lazy"
+          style={{ y: yParallax, height: "120%", top: "-10%", position: "absolute" }}
+          className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.08] group-hover:brightness-110"
+        />
+        
+        <div className="absolute inset-0 border border-gold/0 group-hover:border-gold/60 rounded-xl transition-all duration-700 pointer-events-none z-20 scale-[0.98] group-hover:scale-100" />
+        <div className="absolute inset-0 bg-charcoal/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+        
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-3 z-30 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+          <span className="text-[9px] tracking-[0.2em] uppercase text-warm-white/90 drop-shadow-sm mb-1 block">
+            {project.category}
+          </span>
+          <h3 className="font-display text-base md:text-lg text-gold mb-2 leading-tight">
+            {project.title}
+          </h3>
+          <div className="inline-flex items-center gap-1 text-[9px] tracking-[0.2em] uppercase text-warm-white border-b border-gold/30 pb-0.5 group-hover:border-gold transition-all mt-1">
+            View <ArrowUpRight size={10} className="text-gold" />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const Portfolio = () => {
   useReveal();
@@ -325,9 +169,8 @@ const Portfolio = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 reveal">
           <span className="text-[10px] tracking-luxe uppercase text-gold">PORTFOLIO</span>
-          <h2 className="font-display text-4xl md:text-6xl mt-4 leading-tight">
-            Timeless Interiors <span className="italic">Crafted with Precision</span>
-          </h2>
+          <TextReveal text="Timeless Interiors" className="font-display text-4xl md:text-6xl mt-4 leading-tight block" delay={0.1} />
+          <TextReveal text="Crafted with Precision" className="font-display text-4xl md:text-6xl leading-tight italic text-gold block" delay={0.2} />
           <div className="h-px w-16 bg-gold mx-auto mt-6 mb-8" />
           <p className="max-w-2xl mx-auto text-foreground/70 text-sm md:text-base leading-relaxed">
             Discover a curated collection of residential and commercial spaces designed with elegance, functionality, and attention to every detail.
@@ -355,44 +198,7 @@ const Portfolio = () => {
         <motion.div layout className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-5">
           <AnimatePresence>
             {displayedProjects.map((project, idx) => (
-              <motion.div
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5, delay: idx * 0.05 }}
-                key={project.id}
-                className="group relative overflow-hidden rounded-xl shadow-sm cursor-pointer bg-warm-white h-[140px] sm:h-[150px] md:h-[160px] lg:h-[180px]"
-                onClick={() => openLightbox(idx)}
-              >
-                <div className="relative overflow-hidden w-full h-full">
-                  <img
-                    src={project.img}
-                    alt={project.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03] group-hover:brightness-110"
-                  />
-                  
-                  {/* Golden Border Animation */}
-                  <div className="absolute inset-0 border border-gold/0 group-hover:border-gold/60 rounded-xl transition-all duration-700 pointer-events-none z-20 scale-[0.98] group-hover:scale-100" />
-                  
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-charcoal/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-                  
-                  {/* Content */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-3 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <span className="text-[9px] tracking-[0.2em] uppercase text-warm-white/90 drop-shadow-sm mb-1 block">
-                      {project.category}
-                    </span>
-                    <h3 className="font-display text-base md:text-lg text-gold mb-2 leading-tight">
-                      {project.title}
-                    </h3>
-                    <div className="inline-flex items-center gap-1 text-[9px] tracking-[0.2em] uppercase text-warm-white border-b border-gold/30 pb-0.5 group-hover:border-gold transition-colors mt-1">
-                      View <ArrowUpRight size={10} className="text-gold" />
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+              <ProjectCard key={project.id} project={project} idx={idx} onClick={() => openLightbox(idx)} />
             ))}
           </AnimatePresence>
         </motion.div>
